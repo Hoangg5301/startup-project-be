@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: run-app
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/anonymous-project}
+    username: ${DATASOURCE_USERNAME:postgres}
+    password: ${DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      idle-timeout: 300000
+      pool-name: HikariCP
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

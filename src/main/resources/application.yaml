@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/master.xml
+    default-schema: public
+    contexts: dev
+    drop-first: false
+
+jwt:
+    private-key-path: classpath:keys/private_key.der
+    public-key-path: classpath:keys/public_key.der
+    expiration-time: 86400000
+
+default:
+  password: abc123456!
