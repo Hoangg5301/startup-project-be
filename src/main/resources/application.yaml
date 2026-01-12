@@ -2,9 +2,10 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: startup-project
   profiles:
     active: dev
-
 
   liquibase:
     enabled: true

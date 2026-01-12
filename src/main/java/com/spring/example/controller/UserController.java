@@ -5,6 +5,8 @@ import com.spring.example.dto.request.user.UpdateUserRequest;
 import com.spring.example.dto.response.user.CreateUserResponse;
 import com.spring.example.dto.response.user.GetUserResponse;
 import com.spring.example.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,23 +20,27 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@Tag(name = "User Management", description = "APIs for managing users")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
+    @Operation(summary = "Create a new user", description = "Creates a new user in the system")
     public ResponseEntity<CreateUserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
         CreateUserResponse response = userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get user by ID", description = "Retrieves a user by their unique identifier")
     public ResponseEntity<GetUserResponse> getUserById(@PathVariable UUID id) {
         GetUserResponse response = userService.getUserById(id);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update user", description = "Updates an existing user's information")
     public ResponseEntity<GetUserResponse> updateUser(
             @PathVariable UUID id,
             @Valid @RequestBody UpdateUserRequest request) {
@@ -43,12 +49,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete user", description = "Deletes a user from the system")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
+    @Operation(summary = "Get all users", description = "Retrieves a paginated list of all users")
     public ResponseEntity<Page<GetUserResponse>> getAllUsers(Pageable pageable) {
         Page<GetUserResponse> response = userService.getAllUsers(pageable);
         return ResponseEntity.ok(response);

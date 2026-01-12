@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: prod
 
   servlet:
     multipart:
@@ -25,9 +25,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
-springdoc:
-  api-docs:
-    enabled: true
-  packages-to-scan: com.spring.example.controller
-  paths-to-match: /**
