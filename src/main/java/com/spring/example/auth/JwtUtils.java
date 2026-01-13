@@ -71,6 +71,16 @@ public class JwtUtils {
         });
     }
 
+
+    public String extractRole(String token) {
+        return extractClaim(token, new Function<Claims, String>() {
+            @Override
+            public String apply(Claims claims) {
+                return claims.get("roles");
+            }
+        });
+    }
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
