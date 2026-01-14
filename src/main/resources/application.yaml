@@ -7,6 +7,19 @@ spring:
   profiles:
     active: dev
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:836961388774-vnrl77kt9m2va2341234w241vq8l63op.apps.googleusercontent.com}
+            client-secret: ${GOOGLE_CLIENT_SECRET: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123}
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
+
+
   liquibase:
     enabled: true
     change-log: classpath:db/master.xml

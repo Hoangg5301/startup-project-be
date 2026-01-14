@@ -1,4 +1,4 @@
-package com.spring.example.auth;
+package com.spring.example.auth.jwt;
 
 import com.spring.example.common.role.SystemRole;
 import com.spring.example.entity.UserEntity;

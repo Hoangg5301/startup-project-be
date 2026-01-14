@@ -5,6 +5,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class JwtUtils {
     public String generateToken(UserDetails userDetails) {
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", userDetails.getAuthorities());
+        claims.put("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
         return generateToken(claims, userDetails.getUsername());
     }
 
@@ -76,7 +77,7 @@ public class JwtUtils {
         return extractClaim(token, new Function<Claims, String>() {
             @Override
             public String apply(Claims claims) {
-                return claims.get("roles");
+                return (String) claims.get("roles");
             }
         });
     }
