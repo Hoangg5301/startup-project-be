@@ -5,6 +5,7 @@ import com.spring.example.dto.request.auth.LoginRequest;
 import com.spring.example.dto.response.auth.LoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,12 @@ public class AuthController {
     public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
 
         log.info("login");
+
+        return null;
+    }
+
+    @PostMapping("/oauth2/google")
+    public void login(HttpServletResponse response) {
 
         return null;
     }
