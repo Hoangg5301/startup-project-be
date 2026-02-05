@@ -1,5 +1,6 @@
-package com.spring.example.auth;
+package com.spring.example.auth.user_password;
 
+import com.spring.example.auth.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationProvider implements AuthenticationProvider {
+public class CustomUserNamePasswordAuthenticationProvider implements AuthenticationProvider {
 
     private final JwtUtils jwtUtils;
 

@@ -1,7 +1,6 @@
-package com.spring.example.configuaration.security;
+package com.spring.example.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.example.common.response.ApiResponse;
 import com.spring.example.common.response.ErrorResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

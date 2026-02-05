@@ -1,4 +1,4 @@
-package com.spring.example.configuaration.security;
+package com.spring.example.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
