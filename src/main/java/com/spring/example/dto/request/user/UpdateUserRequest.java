@@ -13,6 +13,8 @@ public class UpdateUserRequest {
     private String name;
     
     private String phone;
+
+    private String userName;
     
     @Email(message = "Email should be valid")
     private String email;

@@ -37,6 +37,9 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new BusinessException("Email already exists");
         }
+        if (userRepository.findByUserName(request.getUserName()).isPresent()) {
+            throw new BusinessException("UserName already exists");
+        }
 
         UserEntity userEntity = userMapper.toEntity(request);
         userEntity.setPassword(passwordEncoder.encode(defaultPassword));

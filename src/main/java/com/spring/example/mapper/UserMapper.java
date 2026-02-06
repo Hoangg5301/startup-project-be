@@ -14,6 +14,7 @@ import java.util.Set;
 public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "userName", source = "userName")
     @Mapping(target = "createAt", ignore = true)
     @Mapping(target = "updateAt", ignore = true)
     @Mapping(target = "createBy", ignore = true)
@@ -26,6 +27,7 @@ public interface UserMapper {
 
     GetUserResponse toGetResponse(UserEntity entity);
 
+    @Mapping(target = "userName", source = "userName")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createAt", ignore = true)
     @Mapping(target = "updateAt", ignore = true)

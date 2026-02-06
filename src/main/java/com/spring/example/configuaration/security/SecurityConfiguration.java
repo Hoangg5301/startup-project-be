@@ -1,21 +1,19 @@
 package com.spring.example.configuaration.security;
 
 import com.spring.example.auth.UnauthorizedHandler;
-import com.spring.example.auth.user_password.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -26,9 +24,14 @@ public class SecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Bean
     AuthenticationManager authenticationManager() {
-        return new ProviderManager(new DaoAuthenticationProvider(userDetailsService));
+
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        return new ProviderManager(daoAuthenticationProvider);
     }
 
     private final CorsConfigurationSource corsConfigurationSource;
@@ -60,10 +63,10 @@ public class SecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .exceptionHandling(e -> {
                     e.authenticationEntryPoint(unauthorizedHandler);
-                })
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated()
-                );
+                });
+//                .authorizeHttpRequests(auth -> auth
+//                        .anyRequest().authenticated()
+//                )
 //                .oauth2ResourceServer(
 //                        oauth2 -> oauth2.jwt(Customizer.withDefaults())
 //                );

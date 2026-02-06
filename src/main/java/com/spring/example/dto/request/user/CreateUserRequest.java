@@ -14,6 +14,8 @@ public class CreateUserRequest {
     @NotBlank(message = "Phone is required")
     private String phone;
 
+    private String userName;
+
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is required")
     private String email;

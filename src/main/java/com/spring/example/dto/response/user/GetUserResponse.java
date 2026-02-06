@@ -19,6 +19,8 @@ public class GetUserResponse {
 
     private String email;
 
+    private String userName;
+
     private boolean active;
 
     private Set<SystemRole> roles;
