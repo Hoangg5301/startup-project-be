@@ -1,4 +1,4 @@
-package com.spring.example.auth.oauth2;
+package com.spring.example.auth;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
