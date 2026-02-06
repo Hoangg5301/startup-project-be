@@ -34,8 +34,9 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .toList();
 
         return CustomUserDetails.builder()
-                .username(userEntity.getUserName())
                 .id(userEntity.getId())
+                .username(userEntity.getUserName())
+                .email(userEntity.getEmail())
                 .active(userEntity.isActive())
                 .password(userEntity.getPassword())
                 .roles(roles)

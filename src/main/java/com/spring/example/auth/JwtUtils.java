@@ -1,5 +1,6 @@
 package com.spring.example.auth;
 
+import com.spring.example.auth.user_password.CustomUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
@@ -29,9 +30,11 @@ public class JwtUtils {
     @Value("${jwt.expiration-time}")
     private long expirationTime;
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(CustomUserDetails userDetails) {
 
         Map<String, Object> claims = new HashMap<>();
+        claims.put("user_name", userDetails.getUsername());
+        claims.put("email", userDetails.getEmail());
         claims.put("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
         return generateToken(claims, userDetails.getUsername());
     }
