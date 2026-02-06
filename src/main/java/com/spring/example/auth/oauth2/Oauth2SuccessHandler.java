@@ -1,6 +1,6 @@
-package com.spring.example.auth;
+package com.spring.example.auth.oauth2;
 
-import io.jsonwebtoken.Claims;
+import com.spring.example.auth.JwtUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

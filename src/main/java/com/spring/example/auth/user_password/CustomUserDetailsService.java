@@ -4,11 +4,16 @@ import com.spring.example.common.role.SystemRole;
 import com.spring.example.entity.UserEntity;
 import com.spring.example.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,11 +27,18 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email));
 
-        String [] roles = userEntity.getRoles().stream()
-                .map(SystemRole::getRoleName)
-                .toArray(String[]::new);
-        return User.withUsername(userEntity.getEmail())
+        List<SimpleGrantedAuthority> roles = userEntity.getRoles().stream()
+                .map(systemRole -> {
+                    return new SimpleGrantedAuthority("ROLE_" + systemRole.getRoleName());
+                })
+                .toList();
+
+        return CustomUserDetails.builder()
+                .username(userEntity.getUserName())
+                .id(userEntity.getId())
+                .active(userEntity.isActive())
                 .password(userEntity.getPassword())
-                .roles(roles).build();
+                .roles(roles)
+                .build();
     }
 }
