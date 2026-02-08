@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -26,6 +27,11 @@ public class SecurityConfiguration {
     private final UserDetailsService userDetailsService;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Bean
+    public JwtDecoder  jwtDecoder() {
+        return org.springframework.security.oauth2.jwt.NimbusJwtDecoder.withJwkSetUri("http://localhost:8080/.well-known/jwks.json").build();
+    }
 
     @Bean
     AuthenticationManager authenticationManager() {
@@ -66,7 +72,7 @@ public class SecurityConfiguration {
                     e.authenticationEntryPoint(unauthorizedHandler);
                 })
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(
                         oauth2 -> oauth2.jwt(Customizer.withDefaults())
