@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     @Operation(summary = "Get user by ID", description = "Retrieves a user by their unique identifier")
     public ResponseEntity<GetUserResponse> getUserById(@PathVariable UUID id) {
         GetUserResponse response = userService.getUserById(id);
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/admin")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @Operation(summary = "Get user by ID", description = "Retrieves a user by their unique identifier")
     public ResponseEntity<GetUserResponse> getUserByIdAdmin(@PathVariable UUID id) {
         GetUserResponse response = userService.getUserById(id);
