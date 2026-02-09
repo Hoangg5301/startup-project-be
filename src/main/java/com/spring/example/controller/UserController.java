@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -33,8 +34,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get user by ID", description = "Retrieves a user by their unique identifier")
     public ResponseEntity<GetUserResponse> getUserById(@PathVariable UUID id) {
+        GetUserResponse response = userService.getUserById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(summary = "Get user by ID", description = "Retrieves a user by their unique identifier")
+    public ResponseEntity<GetUserResponse> getUserByIdAdmin(@PathVariable UUID id) {
         GetUserResponse response = userService.getUserById(id);
         return ResponseEntity.ok(response);
     }
