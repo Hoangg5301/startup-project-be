@@ -42,4 +42,9 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         return this.username;
     }
+
+    @Override
+    public boolean isEnabled() {
+        return this.active;
+    }
 }
